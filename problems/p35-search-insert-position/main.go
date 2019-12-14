@@ -70,8 +70,10 @@ func searchInsert3(nums []int, target int) int {
 	start, end := 0, len(nums)
 	for start < end {
 		mid := (start + end) / 2 // choose the lower one in the middle if the count of numbers is even
-		if target <= nums[mid] { // the target is in the middle or before it
-			end = mid
+		if target == nums[mid] {
+			return mid
+		} else if target < nums[mid] { // the target is in the middle or before it
+			end = mid // don't use end=(mid-1) here to avoid index out of range
 		} else {
 			start = mid + 1
 		}

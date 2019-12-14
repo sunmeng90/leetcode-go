@@ -39,6 +39,32 @@ func binarySearch(nums []int, target int, start, end int) int {
 	}
 }
 
+func searchInsert2(nums []int, target int) int {
+	return binarySearch2(nums, target, 0, len(nums)-1)
+}
+
+func binarySearch2(nums []int, target int, start, end int) int {
+	p := (start + end) / 2
+	if nums[p] == target {
+		return p // found
+	}
+	if (end - start) <= 1 {
+		if target < nums[start] { // if the target is smaller first, then choose the start position
+			return start
+		} else if target <= nums[end] { //[only there are two value] if the target is large than first and smaller than or equal the second, then choose the end position
+			return end
+		} else { // if the target is large than the second, then take position after the second(end+1)
+			return end + 1
+		}
+	}
+
+	if target < nums[p] {
+		return binarySearch(nums, target, start, p-1)
+	} else {
+		return binarySearch(nums, target, p+1, end)
+	}
+}
+
 func main() {
 	fmt.Println(searchInsert([]int{1, 3, 5, 6}, 5))      //2
 	fmt.Println(searchInsert([]int{1, 3, 5, 6}, 0))      //0

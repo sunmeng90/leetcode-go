@@ -65,6 +65,21 @@ func binarySearch2(nums []int, target int, start, end int) int {
 	}
 }
 
+// no recursion
+func searchInsert3(nums []int, target int) int {
+	start, end := 0, len(nums)
+	for start < end {
+		mid := (start + end) / 2 // choose the lower one in the middle if the count of numbers is even
+		if target <= nums[mid] { // the target is in the middle or before it
+			end = mid
+		} else {
+			start = mid + 1
+		}
+	}
+	return start
+}
+
+//https://www.golangprograms.com/functions-mess-recursive-anonymous-function-in-golang.html
 func main() {
 	fmt.Println(searchInsert([]int{1, 3, 5, 6}, 5))      //2
 	fmt.Println(searchInsert([]int{1, 3, 5, 6}, 0))      //0
@@ -73,5 +88,12 @@ func main() {
 	fmt.Println(searchInsert([]int{1, 3}, 2))            //1
 	fmt.Println(searchInsert([]int{1, 3, 5, 6}, 2))      //1
 	fmt.Println(searchInsert([]int{1, 3}, 3))            //1
-
+	fmt.Println("================")
+	fmt.Println(searchInsert3([]int{1, 3, 5, 6}, 5))      //2
+	fmt.Println(searchInsert3([]int{1, 3, 5, 6}, 0))      //0
+	fmt.Println(searchInsert3([]int{3, 5, 7, 9, 10}, 8))  //3
+	fmt.Println(searchInsert3([]int{3, 5, 7, 9, 10}, 11)) //5
+	fmt.Println(searchInsert3([]int{1, 3}, 2))            //1
+	fmt.Println(searchInsert3([]int{1, 3, 5, 6}, 2))      //1
+	fmt.Println(searchInsert3([]int{1, 3}, 3))            //1
 }

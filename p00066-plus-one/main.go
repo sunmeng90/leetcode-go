@@ -21,7 +21,7 @@ Example 2:
 Explanation: The array represents the integer 4321.
 */
 func plusOne(digits []int) []int {
-	overflow := true
+	overflow := true // image an overflow beyond the end of last digit
 	endIndex := len(digits) - 1
 	for i := endIndex; i >= 0; i-- {
 		if digits[i] == 9 {
@@ -32,7 +32,7 @@ func plusOne(digits []int) []int {
 			break
 		}
 	}
-	if overflow { // most significant order
+	if overflow { // if overflow to most significant order
 		digits = append(digits, digits[endIndex])
 		for endIndex > 0 {
 			digits[endIndex] = digits[endIndex-1]
@@ -44,8 +44,7 @@ func plusOne(digits []int) []int {
 }
 
 func main() {
-	d1 := []int{1, 2, 3}
-	fmt.Printf("%v", plusOne(d1))
+	fmt.Printf("%v", plusOne([]int{1, 2, 3}))
 	fmt.Printf("%v", plusOne([]int{9}))
 	fmt.Printf("%v", plusOne([]int{0}))
 	fmt.Printf("%v", plusOne([]int{99}))

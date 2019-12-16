@@ -48,4 +48,5 @@ func main() {
 	fmt.Printf("%v", plusOne([]int{9}))
 	fmt.Printf("%v", plusOne([]int{0}))
 	fmt.Printf("%v", plusOne([]int{99}))
+	fmt.Printf("%v", plusOne([]int{1099}))
 }

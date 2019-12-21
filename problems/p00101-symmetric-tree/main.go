@@ -65,3 +65,21 @@ func equal(m *model.TreeNode, n *model.TreeNode) bool {
 	}
 	return false
 }
+
+//check node are mirror, no extra space needed
+func isSymmetric2(root *model.TreeNode) bool {
+	return isMirror(root, root)
+}
+
+/**
+two node are mirror if their values equals and left, right children of one are mirror of another right, left
+*/
+func isMirror(t1 *model.TreeNode, t2 *model.TreeNode) bool {
+	if t1 == nil && t2 == nil {
+		return true
+	}
+	if t1 == nil || t2 == nil {
+		return false
+	}
+	return t1.Val == t2.Val && isMirror(t1.Left, t2.Right) && isMirror(t1.Right, t2.Left)
+}

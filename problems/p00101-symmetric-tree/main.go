@@ -1,6 +1,7 @@
 package main
 
 import (
+	list "container/list"
 	"github.com/sunmeng90/leetcode-go/model"
 )
 
@@ -82,4 +83,34 @@ func isMirror(t1 *model.TreeNode, t2 *model.TreeNode) bool {
 		return false
 	}
 	return t1.Val == t2.Val && isMirror(t1.Left, t2.Right) && isMirror(t1.Right, t2.Left)
+}
+
+//iterative way
+func isSymmetric3(root *model.TreeNode) bool {
+	queue := list.New()
+	queue.PushBack(root)
+	queue.PushBack(root)
+	for queue.Len() > 0 {
+		t1 := queue.Remove(queue.Front()).(*model.TreeNode)
+		t2 := queue.Remove(queue.Front()).(*model.TreeNode)
+		if t1 == nil && t2 == nil {
+			continue
+		}
+		if t1 == nil || t2 == nil {
+			return false
+		}
+		if t1.Val != t2.Val {
+			return false
+		}
+		queue.PushBack(t1.Left)
+		queue.PushBack(t2.Right)
+		queue.PushBack(t1.Right)
+		queue.PushBack(t2.Left)
+	}
+	return true
+}
+
+func main() {
+	root := &model.TreeNode{Val: 1}
+	isSymmetric3(root)
 }

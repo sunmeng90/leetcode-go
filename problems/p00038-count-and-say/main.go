@@ -55,7 +55,7 @@ func say(str string) string {
 			count = 1
 		}
 	}
-	if count > 0 {
+	if count > 0 { //last part
 		result += strconv.Itoa(count) + lastChar
 	}
 	return result
@@ -67,4 +67,6 @@ func main() {
 	fmt.Println(countAndSay(2)) //11
 	fmt.Println(countAndSay(3)) //21
 	fmt.Println(countAndSay(4)) //1211
+	fmt.Println(countAndSay(5)) //111221
+	fmt.Println(countAndSay(6)) //312211
 }

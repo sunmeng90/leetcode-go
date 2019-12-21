@@ -92,7 +92,9 @@ func isSymmetric3(root *model.TreeNode) bool {
 	queue.PushBack(root)
 	for queue.Len() > 0 {
 		t1 := queue.Remove(queue.Front()).(*model.TreeNode)
-		t2 := queue.Remove(queue.Front()).(*model.TreeNode)
+		t2 := queue.Remove(queue.Front()).(*model.TreeNode) // cast from interface to struct
+		// queue remove return the interface value, we can't use interface == nil, because the interface type is not nil
+		// so we need cast it to struct first
 		if t1 == nil && t2 == nil {
 			continue
 		}

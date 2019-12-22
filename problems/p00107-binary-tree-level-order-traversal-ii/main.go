@@ -2,6 +2,7 @@ package main
 
 import (
 	"container/list"
+	"fmt"
 	"github.com/sunmeng90/leetcode-go/model"
 )
 
@@ -61,4 +62,41 @@ func reverseSlice(data [][]int) {
 	for i, j := 0, len(data)-1; i < j; i, j = i+1, j-1 {
 		data[i], data[j] = data[j], data[i]
 	}
+}
+
+func levelOrderBottom2(root *model.TreeNode) [][]int {
+	result := make([]*[]int, 0)
+	doPopulateLevel(&result, root, 0)
+	height := len(result)
+	deRefResult := make([][]int, height)
+	for i := height - 1; i >= 0; i-- {
+		deRefResult[height-i-1] = *result[i]
+	}
+	return deRefResult
+}
+
+func doPopulateLevel(result *[]*[]int, root *model.TreeNode, level int) {
+	if root == nil {
+		return
+	}
+	if level >= len(*result) { //new level
+		nodesInLevel := make([]int, 0)
+		*result = append(*result, &nodesInLevel) // result change
+	}
+	doPopulateLevel(result, root.Left, level+1)
+	doPopulateLevel(result, root.Right, level+1)
+	*(*result)[level] = append(*(*result)[level], root.Val) // add current node to the sub-list
+}
+
+func main() {
+	root := &model.TreeNode{Val: 3}
+	n9 := &model.TreeNode{Val: 9}
+	n20 := &model.TreeNode{Val: 20}
+	n15 := &model.TreeNode{Val: 15}
+	n7 := &model.TreeNode{Val: 7}
+	root.Left = n9
+	root.Right = n20
+	n20.Left = n15
+	n20.Right = n7
+	fmt.Printf("%v\n", levelOrderBottom2(root))
 }

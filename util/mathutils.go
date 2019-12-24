@@ -13,3 +13,10 @@ func Max(m int, n int) int {
 	}
 	return m
 }
+
+func Abs(n int) int {
+	if n < 0 {
+		return -n
+	}
+	return n
+}

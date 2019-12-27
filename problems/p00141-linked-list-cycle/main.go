@@ -29,3 +29,6 @@ func hasCycle(head *model.ListNode) bool {
 	}
 	return false
 }
+
+// TODO: image there are two cars in the lane, a slow car and speed car, if the lane is a cycle the fast car will eventually
+// catch up the slow car somewhere. If not a cycle, the two cars will never meet

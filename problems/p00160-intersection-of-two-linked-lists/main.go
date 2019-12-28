@@ -94,6 +94,24 @@ func getIntersectionNode(headA, headB *model.ListNode) *model.ListNode {
 	return nil
 }
 
+// same, but less code
+func getIntersectionNode2(headA, headB *model.ListNode) *model.ListNode {
+	na, nb := headA, headB
+	for na != nb {
+		if na == nil {
+			na = headB
+		} else {
+			na = na.Next
+		}
+		if nb == nil {
+			nb = headA
+		} else {
+			nb = nb.Next
+		}
+	}
+	return na
+}
+
 // TODO: use map: put elements in one list and then traverse the second list to check whether elements are already in the map
 
 // TODO: if two list have intersection, the should have the same end element, so traverse the two list and check the

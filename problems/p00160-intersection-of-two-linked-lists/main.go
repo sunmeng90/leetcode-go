@@ -93,3 +93,8 @@ func getIntersectionNode(headA, headB *model.ListNode) *model.ListNode {
 	}
 	return nil
 }
+
+// TODO: use map: put elements in one list and then traverse the second list to check whether elements are already in the map
+
+// TODO: if two list have intersection, the should have the same end element, so traverse the two list and check the
+// equality of the end elements

@@ -61,6 +61,10 @@ func (this *MinStack) GetMin() int {
 	return this.min
 }
 
+// TODO: instead push the previous min value to the stack, please see the link below that push the gap instead and use
+// less space, but more computation
+// https://leetcode.com/problems/min-stack/discuss/49031/Share-my-Java-solution-with-ONLY-ONE-stack
+
 /**
  * Your MinStack object will be instantiated and called as such:
  * obj := Constructor();

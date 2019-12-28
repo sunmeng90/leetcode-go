@@ -18,22 +18,35 @@ Example:
 	minStack.top();      --> Returns 0.
 	minStack.getMin();   --> Returns -2.
 */
+// solution:
+// 1. when new min value coming in, push current min value as backup, and when popup min value, then popup again to
+//	  restore previous min value
+// 2. use two stack, and the second one as the min value stack
 type MinStack struct {
 	data []int
+	min  int
 }
 
 /** initialize your data structure here. */
 func Constructor() MinStack {
-	return MinStack{data: make([]int, 0)}
+	return MinStack{data: make([]int, 0), min: int(^uint(0) >> 1)}
 }
 
 func (this *MinStack) Push(x int) {
+	if x <= this.min { // even the new value is equal the min value, we still need a backup
+		this.data = append(this.data, this.min) // if a smaller number coming in, then back up the previous min value first
+		this.min = x                            // update the min value
+	}
 	this.data = append(this.data, x)
 }
 
 func (this *MinStack) Pop() {
 	if len(this.data) > 0 {
-		this.data = this.data[0 : len(this.data)-1]
+		if this.Top() == this.min { // if top is min value
+			this.data = this.data[0 : len(this.data)-1] // remove min value
+			this.min = this.Top()
+		}
+		this.data = this.data[0 : len(this.data)-1] // remove the top if not min, or popup the back up min value
 	}
 }
 
@@ -45,16 +58,7 @@ func (this *MinStack) Top() int {
 }
 
 func (this *MinStack) GetMin() int {
-	min := 0
-	if len(this.data) > 0 {
-		min = this.data[0]
-		for _, v := range this.data {
-			if v < min {
-				min = v
-			}
-		}
-	}
-	return min
+	return this.min
 }
 
 /**

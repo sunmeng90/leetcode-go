@@ -15,6 +15,8 @@ Example 2:
 */
 /*
 Boyer-Moore Voting Algorithm
+Compare numbers in array, if two number are different then ignore them from result, if they are equal, keep it, finally
+if there is a majority, it will be the only numbers in the end
 */
 func majorityElement(nums []int) int {
 	res := 0

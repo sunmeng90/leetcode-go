@@ -54,8 +54,22 @@ func rob2(nums []int) int {
 	return memo[len(nums)]
 }
 
+// iterative way + two variable
+func rob3(nums []int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+	prePre, pre := 0, 0
+	for _, v := range nums {
+		tmp := pre
+		pre = util.Max(prePre+v, pre)
+		prePre = tmp
+	}
+	return pre
+}
+
 func main() {
-	println(rob2([]int{114, 117, 207, 117, 235, 82, 90, 67, 143, 146, 53, 108, 200, 91, 80, 223, 58, 170, 110, 236, 81,
+	println(rob3([]int{114, 117, 207, 117, 235, 82, 90, 67, 143, 146, 53, 108, 200, 91, 80, 223, 58, 170, 110, 236, 81,
 		90, 222, 160, 165, 195, 187, 199, 114, 235, 197, 187, 69, 129, 64, 214, 228, 78, 188, 67, 205, 94, 205, 169,
 		241, 202, 144, 240}))
 }

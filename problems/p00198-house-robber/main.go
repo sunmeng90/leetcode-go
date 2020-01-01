@@ -23,14 +23,22 @@ Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (m
 // https://leetcode.com/problems/house-robber/discuss/156523/From-good-to-great.-How-to-approach-most-of-DP-problems.
 
 func rob(nums []int) int {
-	return robAt(nums, len(nums)-1)
+	memo := make([]int, len(nums)+1)
+	for i := 0; i < len(memo); i++ {
+		memo[i] = -1
+	}
+	return robAt(nums, len(nums)-1, memo)
 }
 
-func robAt(nums []int, i int) int {
+func robAt(nums []int, i int, memo []int) int {
 	if i < 0 {
 		return 0
 	}
-	return util.Max(robAt(nums, i-2)+nums[i], robAt(nums, i-1))
+	if memo[i] >= 0 {
+		return memo[i]
+	}
+	memo[i] = util.Max(robAt(nums, i-2, memo)+nums[i], robAt(nums, i-1, memo))
+	return memo[i]
 }
 
 func main() {

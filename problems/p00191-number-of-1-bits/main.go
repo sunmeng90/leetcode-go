@@ -42,3 +42,14 @@ func hammingWeight(num uint32) int {
 	}
 	return result
 }
+
+// The key idea here is to realize that for any number nn, doing a bit-wise AND of n and n - 1 flips the
+// least-significant 1-bit in n to 0.
+func hammingWeight2(num uint32) int {
+	result := 0
+	for num != 0 {
+		result++
+		num &= num - 1
+	}
+	return result
+}

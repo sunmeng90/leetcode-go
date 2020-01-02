@@ -35,11 +35,9 @@ Google: 90% of our engineers use the software you wrote (Homebrew), but you canâ
  * }
  */
 func invertTree(root *model.TreeNode) *model.TreeNode {
-	if root == nil || (root.Left == nil && root.Right == nil) {
+	if root == nil {
 		return root
 	}
-	root.Left, root.Right = root.Right, root.Left
-	invertTree(root.Left)
-	invertTree(root.Right)
+	root.Left, root.Right = invertTree(root.Right), invertTree(root.Left)
 	return root
 }

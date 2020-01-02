@@ -30,3 +30,11 @@ func isPowerOfTwo(n int) bool {
 	}
 	return count == 1
 }
+
+// n - 1: replace the last bit '1' of n with all the following bits as '1'
+func isPowerOfTwo2(n int) bool {
+	if n <= 0 {
+		return false
+	}
+	return n&(n-1) == 0
+}

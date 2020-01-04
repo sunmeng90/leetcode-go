@@ -36,6 +36,23 @@ func isAnagram(s string, t string) bool {
 	return true
 }
 
+func isAnagram2(s string, t string) bool {
+	if len(s) != len(t) {
+		return false
+	}
+	charFreq := make([]int, 26)
+	for i := 0; i < len(s); i++ {
+		charFreq[s[i]-'a']++
+		charFreq[t[i]-'a']--
+	}
+	for _, v := range charFreq {
+		if v != 0 {
+			return false
+		}
+	}
+	return true
+}
+
 func main() {
 	println(isAnagram("a", "b"))
 }

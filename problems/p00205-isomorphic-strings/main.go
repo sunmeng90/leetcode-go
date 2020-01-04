@@ -5,7 +5,8 @@ Given two strings s and t, determine if they are isomorphic.
 
 Two strings are isomorphic if the characters in s can be replaced to get t.
 
-All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character but a character may map to itself.
+All occurrences of a character must be replaced with another character while preserving the order of characters. No two
+characters may map to the same character but a character may map to itself.
 
 Example 1:
 
@@ -24,8 +25,8 @@ You may assume both s and t have the same length.
 */
 // build a map of characters from s to t, one character(any position) can only map to the same character in another string
 func isIsomorphic(s string, t string) bool {
-	charMap := make(map[byte]byte, len(s))
-	reverseMap := make(map[byte]byte, len(s))
+	charMap := make(map[byte]byte)
+	reverseMap := make(map[byte]byte)
 	for i := 0; i < len(s); i++ {
 		cs, ok := charMap[s[i]] // if char at i is mapped already
 		if ok {
@@ -34,7 +35,7 @@ func isIsomorphic(s string, t string) bool {
 			}
 		} else {
 			cs, ok := reverseMap[t[i]]
-			if ok && cs != s[i] {
+			if ok && cs != s[i] { // if char is mapped to another char from t to s
 				return false
 			}
 			charMap[s[i]] = t[i] // add new map entry

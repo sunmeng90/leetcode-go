@@ -54,5 +54,46 @@ func concatPath(root *model.TreeNode, path string, result *[]string) {
 	}
 }
 
+func binaryTreePathsNonRecursive(root *model.TreeNode) []string {
+	result := make([]string, 0)
+	if root == nil {
+		return result
+	}
+	nodes := make([]*model.TreeNode, 0)
+	nodes = append(nodes, root)
+	tmpPath := make([]string, 0)
+	tmpPath = append(tmpPath, strconv.Itoa(root.Val))
+	for len(nodes) != 0 {
+		cur := nodes[len(nodes)-1]
+		nodes = nodes[:len(nodes)-1]
+		curPath := tmpPath[len(tmpPath)-1]
+		tmpPath = tmpPath[:len(tmpPath)-1]
+		if cur.Left == nil && cur.Right == nil {
+			result = append(result, curPath)
+			continue
+		}
+		if cur.Left != nil {
+			nodes = append(nodes, cur.Left)
+			tmpPath = append(tmpPath, curPath+"->"+strconv.Itoa(cur.Left.Val))
+		}
+		if cur.Right != nil {
+			nodes = append(nodes, cur.Right)
+			tmpPath = append(tmpPath, curPath+"->"+strconv.Itoa(cur.Right.Val))
+		}
+	}
+	return result
+}
+
 func main() {
+	nodes := make([]*model.TreeNode, 0)
+	println(nodes[:0])
+	root := &model.TreeNode{Val: 1}
+	n2 := &model.TreeNode{Val: 2}
+	n3 := &model.TreeNode{Val: 3}
+	n5 := &model.TreeNode{Val: 5}
+	root.Left = n2
+	root.Right = n3
+	n2.Right = n5
+	println(binaryTreePathsNonRecursive(root))
+
 }

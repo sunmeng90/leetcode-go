@@ -44,3 +44,16 @@ func lowestCommonAncestor(root, p, q *model.TreeNode) *model.TreeNode {
 	}
 	return root
 }
+
+func lowestCommonAncestorNonRecursive(root, p, q *model.TreeNode) *model.TreeNode {
+	for root != nil {
+		if root.Val < p.Val && root.Val < q.Val {
+			root = root.Right
+		} else if root.Val > p.Val && root.Val > q.Val {
+			root = root.Left
+		} else {
+			return root
+		}
+	}
+	return root
+}

@@ -1,6 +1,9 @@
 package util
 
-import "strconv"
+import (
+	"github.com/sunmeng90/leetcode-go/model"
+	"strconv"
+)
 
 func IntSliceToString(data []int) string {
 	result := ""
@@ -11,4 +14,14 @@ func IntSliceToString(data []int) string {
 		result += strconv.Itoa(data[i]) + ","
 	}
 	return result[:len(result)-1]
+}
+
+func SliceToSinglyLinkedList(data []int) *model.ListNode {
+	preHead := &model.ListNode{}
+	cur := preHead
+	for _, v := range data {
+		cur.Next = &model.ListNode{Val: v}
+		cur = cur.Next
+	}
+	return preHead.Next
 }

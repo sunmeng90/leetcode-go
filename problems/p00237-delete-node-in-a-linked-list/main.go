@@ -47,3 +47,10 @@ func deleteNode(node *model.ListNode) {
 		}
 	}
 }
+
+// just copy the first successor and remove it
+// https://leetcode.com/problems/delete-node-in-a-linked-list/discuss/65455/1-3-lines-C%2B%2BJavaPythonCCJavaScriptRuby
+func deleteNode2(node *model.ListNode) {
+	node.Val = node.Next.Val
+	node.Next = node.Next.Next
+}

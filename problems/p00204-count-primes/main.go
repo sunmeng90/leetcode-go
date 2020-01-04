@@ -10,6 +10,7 @@ Output: 4
 Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.
 */
 // TODO: not easy to understand
+// https://leetcode.com/problems/count-primes/discuss/57588/My-simple-Java-solution
 func countPrimes(n int) int {
 	notPrime := make([]bool, n)
 	count := 0

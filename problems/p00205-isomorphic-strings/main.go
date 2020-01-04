@@ -44,3 +44,17 @@ func isIsomorphic(s string, t string) bool {
 	}
 	return true
 }
+
+// keep update the char index in two string, the counterpart chars in s and t should have the same index
+func isIsomorphic2(s string, t string) bool {
+	sCharMap := make(map[byte]int, 256)
+	tCharMap := make(map[byte]int, 256)
+	for i := 0; i < len(s); i++ {
+		if sCharMap[s[i]] != tCharMap[t[i]] {
+			return false
+		}
+		sCharMap[s[i]] = i + 1
+		tCharMap[t[i]] = i + 1
+	}
+	return true
+}

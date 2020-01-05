@@ -37,3 +37,20 @@ func moveZeroes(nums []int) {
 		nums[i] = 0
 	}
 }
+
+// pos is the last non-zero index
+func moveZeroes2(nums []int) {
+	if len(nums) < 2 {
+		return
+	}
+	pos := 0
+	for i := 0; i < len(nums); i++ {
+		if nums[i] != 0 {
+			if i != pos { // pos is less than current index i, there is gap, move current num backward.
+				nums[pos] = nums[i]
+				nums[i] = 0 // since current num is copied backward, so set it zero(maybe overwrite, but not for the last few elements)
+			}
+			pos++
+		}
+	}
+}

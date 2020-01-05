@@ -55,3 +55,28 @@ func getHint(secret string, guess string) string {
 	}
 	return strconv.Itoa(bullCount) + "A" + strconv.Itoa(cowCount) + "B"
 }
+
+func getHint2(secret string, guess string) string {
+	bullCount := 0
+	cowCount := 0
+	numCountMap := make([]int, 10)
+	for i := 0; i < len(secret); i++ {
+		if secret[i] == guess[i] {
+			bullCount++
+		} else { // if counterpart num is not the same
+			if numCountMap[secret[i]-'0'] < 0 { // if secret[i] occurred more times in guess(marked numCountMap[guess[i]-'0']--)
+				cowCount++
+			}
+			if numCountMap[guess[i]-'0'] > 0 { // if guess[i] occurred more times in secret(marked numCountMap[secret[i]-'0']++)
+				cowCount++
+			}
+			// two things happens here: 1. mark secret[i] occurred in secret 2. compensate for secret[i] in target after
+			//add to cowCount
+			numCountMap[secret[i]-'0']++
+			// two things happens here: 1. mark guess[i] occurred in guess 2. compensate for guess[i] in target after
+			//add to cowCount
+			numCountMap[guess[i]-'0']--
+		}
+	}
+	return strconv.Itoa(bullCount) + "A" + strconv.Itoa(cowCount) + "B"
+}

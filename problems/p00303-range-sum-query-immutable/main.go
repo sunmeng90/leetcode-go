@@ -15,19 +15,21 @@ There are many calls to sumRange function.
 */
 
 type NumArray struct {
-	nums []int
+	nums     []int
+	sumCache []int // ith element would be the sum of element from (0 to i)
 }
 
 func Constructor(nums []int) NumArray {
-	return NumArray{nums: nums}
+	caches := make([]int, len(nums)+1) // real sum start from caches[1]
+	for i := 0; i < len(nums); i++ {
+		caches[i+1] = caches[i] + nums[i]
+	}
+	return NumArray{nums: nums, sumCache: caches}
 }
 
+// cache result of sum(1, k), and calculate the range sum by sum[j+1] - sum[i]
 func (this *NumArray) SumRange(i int, j int) int {
-	sum := 0
-	for ; i <= j; i++ {
-		sum += this.nums[i]
-	}
-	return sum
+	return this.sumCache[j+1] - this.sumCache[i]
 }
 
 /**

@@ -41,7 +41,7 @@ func binarySearch(low, high int) int {
 func firstBadVersionNonRecursive(n int) int {
 	low, high := 1, n
 	for low <= high {
-		mid := (low + (high - low)) / 2 // avoid overflow when low and high are int.MAX_VALUE
+		mid := low + (high-low)/2 // avoid overflow when low and high are int.MAX_VALUE
 		if isBadVersion(mid) {
 			// if current version is the first bad version, then it will be compensate by low = mid + 1
 			high = mid - 1 // if current is bad then go to previous
@@ -55,7 +55,7 @@ func firstBadVersionNonRecursive(n int) int {
 func firstBadVersionNonRecursive2(n int) int {
 	low, high := 1, n
 	for low < high {
-		mid := (low + (high - low)) / 2 // avoid overflow when low and high are int.MAX_VALUE
+		mid := low + (high-low)/2 // avoid overflow when low and high are int.MAX_VALUE
 		if isBadVersion(mid) {
 			high = mid // keep the bad version index, wait for low come to the same position and exit the loop
 		} else {

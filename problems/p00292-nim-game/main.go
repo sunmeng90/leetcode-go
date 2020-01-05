@@ -38,13 +38,3 @@ It is obvious that the same pattern repeats itself for n=4,8,12,16,\dotsn=4,8,12
 func canWinNim(n int) bool {
 	return n%4 != 0
 }
-
-func canWinNim2(n int) bool {
-	if n < 4 {
-		return true
-	}
-	if n == 4 {
-		return false
-	}
-
-}

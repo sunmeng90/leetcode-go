@@ -52,6 +52,19 @@ func firstBadVersionNonRecursive(n int) int {
 	return low
 }
 
+func firstBadVersionNonRecursive2(n int) int {
+	low, high := 1, n
+	for low < high {
+		mid := (low + (high - low)) / 2 // avoid overflow when low and high are int.MAX_VALUE
+		if isBadVersion(mid) {
+			high = mid // keep the bad version index, wait for low come to the same position and exit the loop
+		} else {
+			low = mid + 1
+		}
+	}
+	return low
+}
+
 // pre defined api
 func isBadVersion(n int) bool {
 	return false

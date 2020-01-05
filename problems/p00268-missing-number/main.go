@@ -22,3 +22,20 @@ func missingNumber(nums []int) int {
 	}
 	return expectedSum
 }
+
+func missingNumber2(nums []int) int {
+	expectedSum := len(nums)
+	for i := 0; i < len(nums); i++ {
+		expectedSum += i - nums[i] // do the addition and deduction at the same time
+	}
+	return expectedSum
+}
+
+func missingNumber3(nums []int) int {
+	res := len(nums)
+	for i := 0; i < len(nums); i++ {
+		res ^= i
+		res ^= nums[i]
+	}
+	return res
+}

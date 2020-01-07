@@ -41,6 +41,26 @@ func reverseVowels(s string) string {
 	return string(bytes)
 }
 
+func reverseVowels2(s string) string {
+	vowels := "aeiouAEIOU"
+	bytes := []byte(s)
+	for i, j := 0, len(bytes)-1; i < j; i, j = i+1, j-1 {
+		for ; i < j; i++ {
+			if strings.Contains(vowels, string(bytes[i])) {
+				break
+			}
+		}
+		for ; i < j; j-- {
+			if strings.Contains(vowels, string(bytes[j])) {
+				break
+			}
+		}
+		bytes[i], bytes[j] = bytes[j], bytes[i]
+
+	}
+	return string(bytes)
+}
+
 func main() {
 	println(string("abc"[0]))
 	println(reverseVowels("hello"))

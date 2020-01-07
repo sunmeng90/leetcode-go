@@ -8,14 +8,14 @@ import (
 func reverseVowels(s string) string {
 	vowels := "aeiouAEIOU"
 	bytes := []byte(s)
-	pair := 0 // bit mask for match vowels from start and end
+	pair := 0 // bit mask for match vowels from start and end: 00 no match, 01 match from end, 10 match from beginning, 11 two match
 	for i, j := 0, len(bytes)-1; i < j; {
 		if !strings.Contains(vowels, string(bytes[i])) {
-			if pair != 2 {
+			if pair != 2 { // only if there is no match from start or the matched one is already swapped, then proceed
 				i++
 			}
 		} else {
-			pair |= 2
+			pair |= 2 // match from start
 			if pair == 3 {
 				pair = 0
 				bytes[i], bytes[j] = bytes[j], bytes[i]
@@ -28,11 +28,11 @@ func reverseVowels(s string) string {
 				j--
 			}
 		} else {
-			pair |= 1
-			if pair == 3 {
-				pair = 0
-				bytes[i], bytes[j] = bytes[j], bytes[i]
-				i++
+			pair |= 1      // match from end
+			if pair == 3 { // two match
+				pair = 0                                // reset
+				bytes[i], bytes[j] = bytes[j], bytes[i] //swap
+				i++                                     // proceed
 				j--
 			}
 		}

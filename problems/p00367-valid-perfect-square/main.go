@@ -25,3 +25,12 @@ func isPerfectSquare(num int) bool {
 	}
 	return false
 }
+
+// A square number is 1+3+5+7+...
+func isPerfectSquare2(num int) bool {
+	for i := 1; num > 0; {
+		num -= i // num minus odd
+		i += 2   // next odd
+	}
+	return num == 0
+}

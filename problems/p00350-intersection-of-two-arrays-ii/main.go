@@ -35,8 +35,7 @@ func intersect(nums1 []int, nums2 []int) []int {
 			result = append(result, n1)
 			i++
 			j++
-		}
-		if n1 < n2 {
+		} else if n1 < n2 {
 			i++
 		} else if n1 > n2 {
 			j++

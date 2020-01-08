@@ -74,8 +74,7 @@ func intersection3(nums1 []int, nums2 []int) []int {
 			}
 			for ; j < len(nums2) && nums2[j] == n1; j++ {
 			}
-		}
-		if n1 < n2 {
+		} else if n1 < n2 {
 			i++
 		} else if n1 > n2 {
 			j++

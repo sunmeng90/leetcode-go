@@ -34,20 +34,19 @@ func licenseKeyFormatting(S string, K int) string {
 	count := 0
 	result := ""
 	for i := len(upper) - 1; i >= 0; i-- {
-		if count == K {
-			result = "-" + result
-			count = 0
-		}
 		if '-' != upper[i] {
+			if count == K {
+				result = "-" + result
+				count = 0
+			}
 			result = string(upper[i]) + result
 			count++
 		}
 	}
-	if strings.HasPrefix(result, "-") {
-		return result[1:]
-	}
 	return result
 }
+
+// TODO: replace all '-' with "" and then insert '-' from end with step i-k
 
 func main() {
 	println(licenseKeyFormatting("5F3Z-2e-9-w", 4))

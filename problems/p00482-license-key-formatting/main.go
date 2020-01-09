@@ -30,20 +30,39 @@ be shorter as mentioned above.
 */
 
 func licenseKeyFormatting(S string, K int) string {
-	upper := strings.ToUpper(S)
 	count := 0
 	result := ""
-	for i := len(upper) - 1; i >= 0; i-- {
-		if '-' != upper[i] {
+	for i := len(S) - 1; i >= 0; i-- {
+		if '-' != S[i] {
 			if count == K {
 				result = "-" + result
 				count = 0
 			}
-			result = string(upper[i]) + result
+			result = string(S[i]) + result
 			count++
 		}
 	}
-	return result
+	return strings.ToUpper(result)
+}
+
+// lower time and space cost
+func licenseKeyFormatting2(S string, K int) string {
+	count := 0
+	result := make([]byte, 0)
+	for i := len(S) - 1; i >= 0; i-- {
+		if '-' != S[i] {
+			if count == K {
+				result = append(result, '-')
+				count = 0
+			}
+			result = append(result, S[i])
+			count++
+		}
+	}
+	for i, j := 0, len(result)-1; i < j; i, j = i+1, j-1 {
+		result[i], result[j] = result[j], result[i]
+	}
+	return strings.ToUpper(string(result))
 }
 
 // TODO: replace all '-' with "" and then insert '-' from end with step i-k

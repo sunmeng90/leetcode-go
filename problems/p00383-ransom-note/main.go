@@ -29,5 +29,19 @@ func canConstruct(ransomNote string, magazine string) bool {
 	return true
 }
 
+func canConstruct2(ransomNote string, magazine string) bool {
+	charCountMap := make([]int, 26)
+	for i := 0; i < len(magazine); i++ {
+		charCountMap[magazine[i]-'a']++
+	}
+	for i := 0; i < len(ransomNote); i++ {
+		charCountMap[ransomNote[i]-'a']--
+		if charCountMap[ransomNote[i]-'a'] < 0 {
+			return false
+		}
+	}
+	return true
+}
+
 func main() {
 }

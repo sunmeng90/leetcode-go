@@ -14,6 +14,11 @@ Output: 1
 */
 // https://www.cs.cornell.edu/~tomf/notes/cps104/twoscomp.html
 // https://leetcode.com/problems/sum-of-two-integers/discuss/84290/Java-simple-easy-understand-solution-with-explanation
+// https://blog.csdn.net/u014496330/article/details/53911427
+// 二进制运算也是一位一位地相加，如果两个数当前位都为1，则左边一位加上1
+// 两个数的异或值，也就是不需要进位的那些位的值
+// 两个数的取与的值向左移一位，也就是进位后的值
+// 一直重复这个操作，直到进位制为0，也就是没有进位啦，那么上面的数就是结果啦
 func getSum(a int, b int) int {
 	if a == 0 {
 		return b

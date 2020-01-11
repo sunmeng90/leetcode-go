@@ -28,7 +28,7 @@ func sumOfLeftLeaves(root *model.TreeNode) int {
 	if root == nil || (root.Left == nil && root.Right == nil) {
 		return 0
 	}
-	return sumOfLeftLeavesOfParent(root.Left, root) +  sumOfLeftLeavesOfParent(root.Right, root)
+	return sumOfLeftLeavesOfParent(root.Left, root) + sumOfLeftLeavesOfParent(root.Right, root)
 }
 
 func sumOfLeftLeavesOfParent(node *model.TreeNode, parent *model.TreeNode) int {
@@ -39,6 +39,32 @@ func sumOfLeftLeavesOfParent(node *model.TreeNode, parent *model.TreeNode) int {
 		return node.Val
 	}
 	return sumOfLeftLeavesOfParent(node.Left, node) + sumOfLeftLeavesOfParent(node.Right, node)
+}
+
+func sumOfLeftLeaves2(root *model.TreeNode) int {
+	if root == nil || (root.Left == nil && root.Right == nil) {
+		return 0
+	}
+	stack := make([]*model.TreeNode, 0)
+	stack = append(stack, root)
+	sum := 0
+	for len(stack) != 0 {
+		node := stack[len(stack)-1]
+		stack = stack[0 : len(stack)-1]
+		if node.Left != nil {
+			if node.Left.Left == nil && node.Left.Right == nil {
+				sum += node.Left.Val
+			} else {
+				stack = append(stack, node.Left)
+			}
+		}
+		if node.Right != nil {
+			if node.Right.Left != nil || node.Right.Right != nil {
+				stack = append(stack, node.Right)
+			}
+		}
+	}
+	return sum
 }
 
 func main() {

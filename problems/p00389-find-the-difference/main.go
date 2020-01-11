@@ -58,6 +58,16 @@ func findTheDifference3(s string, t string) byte {
 	return byte(byteSumT - byteSumS)
 }
 
+// sum up bytes for two string and get difference
+func findTheDifference4(s string, t string) byte {
+	byteSumS, byteSumT := 0, 0
+	for i := 0; i < len(s); i++ {
+		byteSumS += int(s[i])
+		byteSumT += int(t[i])
+	}
+	return byte(byteSumT + int(t[len(t)-1]) - byteSumS)
+}
+
 func main() {
 
 }

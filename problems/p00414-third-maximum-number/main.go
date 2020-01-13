@@ -63,6 +63,8 @@ func thirdMax(nums []int) int {
 	return firstMax
 }
 
+// TODO: what if we need the 7th max value
+
 func main() {
 	println(thirdMax([]int{3, 2, 1}))
 	println(thirdMax([]int{1, 2, -2147483648}))

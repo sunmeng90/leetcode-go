@@ -31,6 +31,16 @@ func countSegments(s string) int {
 	return count
 }
 
+func countSegments2(s string) int {
+	count := 0
+	for i := 0; i < len(s); i++ {
+		if s[i] != ' ' && (i == 0 || s[i-1] == ' ') { // a word should begin with a blank, or this is the first word
+			count++
+		}
+	}
+	return count
+}
+
 func main() {
 	println(countSegments(""))
 	println(countSegments(" "))

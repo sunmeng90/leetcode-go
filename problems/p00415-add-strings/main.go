@@ -15,7 +15,7 @@ func addStrings(num1 string, num2 string) string {
 	if len(num1) > len(num2) {
 		num1, num2 = num2, num1 // assign short string to num1
 	}
-	result := make([]byte, len(num2))
+	result := make([]byte, len(num2)+1)
 	carry := 0
 	for i, j := len(num1)-1, len(num2)-1; j >= 0; i, j = i-1, j-1 {
 		digitSum := num2[j] + uint8(carry)
@@ -24,16 +24,17 @@ func addStrings(num1 string, num2 string) string {
 		}
 		if digitSum <= '9' {
 			carry = 0
-			result[j] = digitSum
+			result[j+1] = digitSum
 		} else {
 			carry = 1
-			result[j] = digitSum - 10
+			result[j+1] = digitSum - 10
 		}
 	}
 	if carry == 1 {
-		return "1" + string(result)
+		result[0] = '1'
+		return string(result) // avoid create new string in "1" + string(result)
 	}
-	return string(result)
+	return string(result[1:])
 }
 
 func main() {

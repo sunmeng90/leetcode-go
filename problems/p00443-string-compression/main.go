@@ -71,11 +71,7 @@ func compress(chars []byte) int {
 			}
 			count := i - charStartIdx
 			if count > 1 {
-				countBytes := getDigits(count)
-				for j := 0; j < len(countBytes); j++ {
-					numEndIdx++
-					chars[numEndIdx] = countBytes[j]
-				}
+				numEndIdx += addCount(&chars, count, numEndIdx+1)
 			}
 			charStartIdx = i
 			if charStartIdx >= numEndIdx+1 {
@@ -89,11 +85,7 @@ func compress(chars []byte) int {
 			numEndIdx++
 		}
 		count := len(chars) - charStartIdx
-		countBytes := getDigits(count)
-		for j := 0; j < len(countBytes); j++ {
-			numEndIdx++
-			chars[numEndIdx] = countBytes[j]
-		}
+		numEndIdx += addCount(&chars, count, numEndIdx+1)
 	} else if charStartIdx == len(chars) && charStartIdx == numEndIdx+1 {
 		return len(chars)
 	}
@@ -104,6 +96,22 @@ func compress(chars []byte) int {
 // convert to number to digits
 func getDigits(num int) []byte {
 	return []byte(fmt.Sprintf("%d", num))
+}
+
+func addCount(bytes *[]byte, count int, start int) int {
+	bitCount := 0
+	countBak := count
+	for count > 0 {
+		bitCount++
+		count /= 10
+	}
+	end := start + bitCount - 1
+	for i := bitCount; i > 0; i-- {
+		(*bytes)[end] = '0' + uint8(countBak%10)
+		countBak /= 10
+		end--
+	}
+	return bitCount
 }
 
 func assertEquals(src, expected, actual string) {
@@ -172,4 +180,12 @@ func main() {
 	src = "aaabbaa"
 	srcBytes = []byte(src)
 	assertEquals(src, "a3b2a2", string(srcBytes[:compress(srcBytes)]))
+
+	src = "a100"
+	srcBytes = []byte(src)
+	assertEquals(src, "a102", string(srcBytes[:compress(srcBytes)]))
+
+	src = "aaaaaabbbbbbbbbbbbbbbbbbbbbcccccccccccccc"
+	srcBytes = []byte(src)
+	assertEquals(src, "a6b21c14", string(srcBytes[:compress(srcBytes)]))
 }

@@ -99,7 +99,6 @@ func compress(chars []byte) int {
 	} else if charStartIdx == len(chars) && charStartIdx == numEndIdx+1 {
 		return len(chars)
 	}
-	println(strconv.Itoa(numEndIdx) + " -> " + string(chars) + " -> " + string(chars[:numEndIdx+1]))
 	return numEndIdx + 1
 }
 

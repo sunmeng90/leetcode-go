@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 )
 
 /*
@@ -79,7 +78,6 @@ func compress(chars []byte) int {
 				}
 			}
 			charStartIdx = i
-
 			if charStartIdx >= numEndIdx+1 {
 				numEndIdx++
 				chars[numEndIdx] = chars[charStartIdx]
@@ -99,30 +97,79 @@ func compress(chars []byte) int {
 	} else if charStartIdx == len(chars) && charStartIdx == numEndIdx+1 {
 		return len(chars)
 	}
+	//println(strconv.Itoa(numEndIdx) + " -> " + string(chars) + " -> " + string(chars[:numEndIdx+1]))
 	return numEndIdx + 1
 }
 
-//
+// convert to number to digits
 func getDigits(num int) []byte {
 	return []byte(fmt.Sprintf("%d", num))
 }
 
-func main() {
-	compress([]byte("abc"))
+func assertEquals(src, expected, actual string) {
+	if expected != actual {
+		panic(fmt.Sprintf("Error: src: %s, expected: %s, actual: %s\n", src, expected, actual))
+	} else {
+		fmt.Printf("%s -> %s\n", src, actual)
+	}
+}
 
-	compress([]byte("a"))
-	compress([]byte("aa"))
-	compress([]byte("aaa"))
-	compress([]byte("aaab"))
-	compress([]byte("aaabb"))
-	compress([]byte("aaabbc"))
-	compress([]byte("aaabbcdefg"))
-	compress([]byte("aaaaaaaaaaaab"))
-	compress([]byte("abc"))
-	compress([]byte("abbc"))
-	compress([]byte("abb"))
-	compress([]byte("abbb"))
-	compress([]byte("abbbbbbbbbb"))
-	compress([]byte("aabbccc"))
-	compress([]byte("aaabbaa"))
+func main() {
+	src := "a"
+	srcBytes := []byte(src)
+	assertEquals(src, "a", string(srcBytes[:compress(srcBytes)]))
+	src = "aa"
+	srcBytes = []byte(src)
+	assertEquals(src, "a2", string(srcBytes[:compress(srcBytes)]))
+	src = "aaa"
+	srcBytes = []byte(src)
+	assertEquals(src, "a3", string(srcBytes[:compress(srcBytes)]))
+
+	src = "aaab"
+	srcBytes = []byte(src)
+	assertEquals(src, "a3b", string(srcBytes[:compress(srcBytes)]))
+
+	src = "aaabb"
+	srcBytes = []byte(src)
+	assertEquals(src, "a3b2", string(srcBytes[:compress(srcBytes)]))
+
+	src = "aaabbc"
+	srcBytes = []byte(src)
+	assertEquals(src, "a3b2c", string(srcBytes[:compress(srcBytes)]))
+
+	src = "aaabbcdefg"
+	srcBytes = []byte(src)
+	assertEquals(src, "a3b2cdefg", string(srcBytes[:compress(srcBytes)]))
+
+	src = "aaaaaaaaaaaab"
+	srcBytes = []byte(src)
+	assertEquals(src, "a12b", string(srcBytes[:compress(srcBytes)]))
+
+	src = "abc"
+	srcBytes = []byte(src)
+	assertEquals(src, "abc", string(srcBytes[:compress(srcBytes)]))
+
+	src = "abbc"
+	srcBytes = []byte(src)
+	assertEquals(src, "ab2c", string(srcBytes[:compress(srcBytes)]))
+
+	src = "abb"
+	srcBytes = []byte(src)
+	assertEquals(src, "ab2", string(srcBytes[:compress(srcBytes)]))
+
+	src = "abbb"
+	srcBytes = []byte(src)
+	assertEquals(src, "ab3", string(srcBytes[:compress(srcBytes)]))
+
+	src = "abbbbbbbbbb"
+	srcBytes = []byte(src)
+	assertEquals(src, "ab10", string(srcBytes[:compress(srcBytes)]))
+
+	src = "aabbccc"
+	srcBytes = []byte(src)
+	assertEquals(src, "a2b2c3", string(srcBytes[:compress(srcBytes)]))
+
+	src = "aaabbaa"
+	srcBytes = []byte(src)
+	assertEquals(src, "a3b2a2", string(srcBytes[:compress(srcBytes)]))
 }
